@@ -68,6 +68,50 @@ Node* removeTail(Node* head){
     temp->next = nullptr;
     return head;
 }
+Node* deletePosition(Node* head, int k){
+  if(head == NULL) return head;
+  if(k==1){
+    Node* temp = head;
+    head = head->next;
+    free(temp);
+    return head;
+  }
+  int count =0;
+  Node* temp = head; 
+  Node* prev = NULL;
+  while(head != NULL){
+    count++;
+    if(count == k){
+      prev->next = prev->next->next;
+      free(temp);
+      break;
+    }
+    prev = temp;
+    temp = temp->next;
+  }
+  return head;
+}
+Node* deleteEl(Node* head, int el){
+  if(head == NULL) return head;
+  if(head->data==el){
+    Node* temp = head;
+    head = head->next;
+    free(temp);
+    return head;
+  }
+  Node* temp = head;
+  Node* prev = NULL;
+  while(temp!= NULL){
+    if(temp->data == el){
+      prev->next = prev->next->next;
+      free(temp);
+      break;
+    }
+    prev= temp;
+    temp = temp->next;
+  }
+  return head;
+}
 Node* insertHead(Node* head, int val){
     Node* temp = new Node(val,head);
     return temp;
@@ -112,7 +156,7 @@ Node* insertPosition(Node* head, int el, int k){
 int main() {
   vector<int> arr = {21, 2, 3, 5};
   Node* head = convertArr2LL(arr);
-  head = insertPosition(head,5,2);
+  head = deleteEl(head,6);
   print(head);
   return 0;
 }
