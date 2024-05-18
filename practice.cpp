@@ -72,10 +72,47 @@ Node* insertHead(Node* head, int val){
     Node* temp = new Node(val,head);
     return temp;
 }
+Node* insertTail(Node* head, int val){
+    if(head == NULL){
+        return new Node(val);
+    }
+    Node* temp = head;
+    while(temp->next != NULL){
+        temp= temp->next;
+    }
+    Node* newNode = new Node(val);
+    temp->next = newNode;
+    return head;
+}
+Node* insertPosition(Node* head, int el, int k){
+    if(head== NULL){
+        if(k==1){
+            return new Node(el);
+        }
+        else{
+            return NULL;
+        }
+    }
+    if(k==1){
+        return new Node(el,head);
+    }
+    int count = 0;
+    Node* temp = head;
+    while(temp != NULL){
+        count++;
+        if(count ==(k-1)){
+            Node* x = new Node(el, temp->next);
+            temp->next = x;
+            break;
+        }
+        temp= temp->next;
+    }
+    return head;
+}
 int main() {
   vector<int> arr = {21, 2, 3, 5};
   Node* head = convertArr2LL(arr);
-  head = insertHead(head,5);
+  head = insertPosition(head,5,2);
   print(head);
   return 0;
 }
