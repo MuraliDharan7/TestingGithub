@@ -1,5 +1,5 @@
 #include <iostream>
-
+using namespace std;
 struct Node {
     int data;
     Node* next;
@@ -15,7 +15,25 @@ Node* middleLL(Node* head) {
     }
     return slow;
 }
-
+int getNthFromLast(Node *head, int n)
+    {
+           // Your code here
+        int count =0;
+        Node* temp = head;
+        while(temp != NULL){
+            count++;
+            temp = temp->next;
+        }
+        int count1 = count - n;
+        temp = head;
+        int count2 =0;
+        while(temp != head){
+            count2++;
+            if(count2=(count1+1)) return temp->data;
+            temp = temp->next;
+        }
+        return -1;
+    }
 int main() {
     
     Node* head = new Node(1);
@@ -25,12 +43,10 @@ int main() {
     head->next->next->next->next = new Node(5);
 
     
-    Node* middle = middleLL(head);
-
     
-    if (middle != NULL) {
-        std::cout << "Middle Node: " << middle->data << std::endl;
-    }
+    int nthNode = getNthFromLast(head,2);
+    
+    cout << nthNode << endl;
 
     return 0;
 }
