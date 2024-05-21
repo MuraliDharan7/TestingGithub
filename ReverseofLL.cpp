@@ -17,6 +17,14 @@ Node* reverseLL(Node* head){
     }
     return prev;
 }
+Node* reverseRecursive(Node* head){
+    if(head == NULL || head->next == NULL) return head;
+    Node* newNode = reverseRecursive(head->next);
+    Node* front = head->next;
+    front->next = head;
+    head->next = nullptr;
+    return newNode;
+}
 int main() {
     
     Node* head = new Node(1);
@@ -26,7 +34,7 @@ int main() {
     head->next->next->next->next = new Node(5);
 
     
-    Node* reverseofLL = reverseLL(head);
+    Node* reverseofLL = reverseRecursive(head);
 
     
     while (reverseofLL != NULL) {
