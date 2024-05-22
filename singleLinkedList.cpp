@@ -31,7 +31,6 @@ Node* convertArr2LL(vector<int> arr) {
   }
   return head;
 }
-
 bool searchLL(Node* head, int key) {
   Node* temp = head;
   while (temp) {
@@ -42,7 +41,6 @@ bool searchLL(Node* head, int key) {
   }
   return false;
 }
-
 Node* removesHead(Node* head) {
   if (head == NULL) return head;
   Node* temp = head;
@@ -50,7 +48,6 @@ Node* removesHead(Node* head) {
   delete temp;
   return head;
 }
-
 void print(Node* head) {
   while (head != NULL) {
     cout << head->data << " ";
@@ -153,10 +150,25 @@ Node* insertPosition(Node* head, int el, int k){
     }
     return head;
 }
+Node* segregateOddEven(Node* head){
+  if(head == NULL || head->next == NULL) return NULL;
+  Node* odd = head;
+  Node* even = head->next;
+  Node* evenHead = even;
+  while(even != NULL && even->next != NULL){
+    odd->next = odd->next->next;
+    even->next = even->next->next;
+
+    odd = odd->next;
+    even = even->next;
+  }
+  odd->next = evenHead;
+  return head;
+}
 int main() {
   vector<int> arr = {21, 2, 3, 5};
   Node* head = convertArr2LL(arr);
-  head = deleteEl(head,6);
+  head = segregateOddEven(head);
   print(head);
   return 0;
 }
