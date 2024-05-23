@@ -16,7 +16,6 @@ struct Node {
       next = nullptr;
     }
 };
-
 Node* convertArr2LL(vector<int> arr) {
   if (arr.empty()) {  // Handle empty vector case
     return nullptr;
@@ -165,10 +164,26 @@ Node* segregateOddEven(Node* head){
   odd->next = evenHead;
   return head;
 }
+Node* kthNodefromEnd(Node* head, int N){
+  Node* slow = head;
+  Node* fast = head;
+  for(int i =0; i<N; i++){
+    fast = fast->next;
+  }
+  if(fast == NULL) return head->next;
+  while(fast->next != NULL){
+    fast = fast->next;
+    slow = slow->next;
+  }
+  Node* newNode = slow->next;
+  slow->next = slow->next->next;
+  free(newNode);
+  return head;
+}
 int main() {
   vector<int> arr = {21, 2, 3, 5};
-  Node* head = convertArr2LL(arr);
-  head = segregateOddEven(head);
+  Node* head = convertArr2LL(arr); 
+  head = kthNodefromEnd(head,5);
   print(head);
   return 0;
 }
