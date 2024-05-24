@@ -180,10 +180,22 @@ Node* kthNodefromEnd(Node* head, int N){
   free(newNode);
   return head;
 }
+Node* dltMiddleNode(Node* head){
+  if(head == NULL || head->next == NULL) return NULL;
+  Node* slow = head;
+  Node* fast = head;
+  fast = head->next->next;
+  while(fast != NULL && fast->next != NULL){
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+  slow->next = slow->next->next;
+  return head;
+}
 int main() {
-  vector<int> arr = {21, 2, 3, 5};
+  vector<int> arr = {21,3,5,8,20};
   Node* head = convertArr2LL(arr); 
-  head = kthNodefromEnd(head,5);
+  head = dltMiddleNode(head);
   print(head);
   return 0;
 }
